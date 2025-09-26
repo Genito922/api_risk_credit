@@ -70,3 +70,32 @@ class Apport(Base):
 
     # Relation
     demande = relationship("Demande", back_populates="apport")  # One-to-One inverse
+
+
+from sqlalchemy import Column, Integer, String
+from .database import Base
+
+class All_demande(Base):
+    __tablename__ = "all_demandes"
+
+    numero_demande = Column(Integer, primary_key=True, index=True)
+    montant_operation = Column(Integer)
+    duree = Column(Integer)
+    numero_client = Column(Integer)
+    accord = Column(String)
+    numero_agence = Column(Integer)
+    duree_de_traitement = Column(Integer)
+    code_accord = Column(Integer)
+    apport = Column(Integer)
+    revenu_mensuel_moyen = Column(Integer)
+    code_regularite_revenus = Column(Integer)
+    regularite_des_revenus = Column(String)
+    code_statut_emploi = Column(Integer)
+    regularite_emploi = Column(String)
+    situation_familliale = Column(String)
+    nombre_enfants = Column(Integer)
+    age = Column(Integer)
+    nom_client = Column(String)
+    statut_activite = Column(String)
+    ville = Column(String)
+    adresse = Column(String)

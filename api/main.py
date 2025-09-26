@@ -186,6 +186,24 @@ def read_apport(demande_id: int = Path(...), db: Session = Depends(get_db)):
 
 
 # ========================================
+# Endpoint ML
+# ========================================
+
+@app.get(
+    "/all_demandes/{numero_demande}",
+    summary="Obtenir les infos lié à une demande",
+    response_model=list[schemas.All_demandeBase],
+    tags=["infos_demande"],
+)
+def read_all_demandes(numero_demande: int = Path(...), db: Session = Depends(get_db)):    
+    db_demande = helpers.get_demande_by_id(db, numero_demande)
+    if db_demande is None:
+        raise HTTPException(status_code=404, detail="Demande not found")
+    return db_demande
+
+
+
+# ========================================
 # Endpoint analytics
 # ========================================
 @app.get(

@@ -114,6 +114,17 @@ def get_apports(db: Session, skip: int = 0, limit: int = 100):
     query = db.query(models.Apport)
     return query.offset(skip).limit(limit).all()
 
+# =========================
+# ML dataset
+# =========================
+
+def get_all_demandes(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.All_demande).offset(skip).limit(limit).all()
+
+def get_demande_by_id(db: Session, numero_demande: int):
+    return db.query(models.All_demande).filter(models.All_demande.numero_demande == numero_demande).first()
+
+
 
 # =========================
 # Analytics
