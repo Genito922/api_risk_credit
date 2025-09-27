@@ -105,35 +105,34 @@ class DemandeDetailed(DemandeBase):
 # Base pour ML
 # ------------------------------
 
-class All_demandeBase(BaseModel):
+class AllDBBase(BaseModel):
     numero_demande: int
-    montant_operation: int
-    duree: int
-    numero_client: int
-    accord: str
-    numero_agence: int
-    duree_de_traitement: int
-    code_accord: int 
-    apport: int 
-    revenu_mensuel_moyen: int
-    code_regularite_revenus: int
-    regularite_des_revenus: str
-    code_statut_emploi: int 
-    regularite_emploi: str
-    situation_familliale: str
-    nombre_enfants: int
-    age: int
-    nom_client: str 
-    statut_activite: str
-    ville: str
-    adresse: str      
+    montant_operation: Optional[int]
+    duree: Optional[int]
+    numero_client: Optional[int]
+    accord: Optional[str]
+    numero_agence: Optional[int]
+    duree_de_traitement: Optional[int]
+    code_accord: Optional[int] 
+    apport: Optional[int] 
+    revenu_mensuel_moyen: Optional[int]
+    code_regularite_revenus: Optional[int]
+    regularite_des_revenus: Optional[str]
+    code_statut_emploi: Optional[int] 
+    regularite_emploi: Optional[str]
+    situation_familliale: Optional[str]
+    nombre_enfants: Optional[int]
+    age: Optional[int]
+    nom_client: Optional[str] 
+    statut_activite: Optional[str]
+    ville: Optional[str]
+    adresse: Optional[str]
 
     class Config:
-        from_attributes = True  
-
-class All_demandeSimple(All_demandeBase):
+        from_attributes = True
+          
+class AllDBSimple(AllDBBase):
     pass
-
 # -----------------------------
 # Analytics
 # -----------------------------

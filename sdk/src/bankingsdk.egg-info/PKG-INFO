@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: bankingsdk
-Version: 0.1.8
+Version: 0.2.0
 Summary: Software Development Kit (SDK) client pour l'API Credit Risk
 Author-email: N'DOUBA MÔH-ADJONLIN <ndoubajeanclaude@outlook.com>
 Classifier: Development Status :: 3 - Alpha
@@ -52,7 +52,7 @@ client.health_check()
 # Retourne : {"status": "ok"}
 ```
 
-### 2. Récupérer un film
+### 2. Récupérer une demande
 
 ```python
 demande = client.get_demande(1)

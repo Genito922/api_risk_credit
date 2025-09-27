@@ -72,7 +72,7 @@ class Apport(Base):
     demande = relationship("Demande", back_populates="apport")  # One-to-One inverse
 
 
-class All_demande(Base):
+class AllDB(Base):
     __tablename__ = "all_demandes"
 
     numero_demande = Column(Integer, primary_key=True, index=True)

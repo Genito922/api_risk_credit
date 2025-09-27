@@ -185,27 +185,17 @@ def read_apport(demande_id: int = Path(...), db: Session = Depends(get_db)):
 # ========================================
 # Endpoint ML / All demandes
 # ========================================
-@app.get(
-    "/all_demandes/{numero_demande}",
-    summary="Obtenir les infos liées à une demande",
-    response_model=schemas.All_demandeSimple,  # objet unique, pas de liste
-    tags=["infos_demande"],
-)
-def read_all_demandes(numero_demande: int = Path(...), db: Session = Depends(get_db)):    
-    db_demande = helpers.get_demande_by_id(db, numero_demande)
+@app.get("/all_demandes/", response_model=list[schemas.AllDBSimple])
+def read_demandes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return helpers.get_all_demandes(db, skip=skip, limit=limit)
+
+@app.get("/all_demandes/{numero_demande}", response_model=schemas.AllDBSimple)
+def read_demande(numero_demande: int, db: Session = Depends(get_db)):
+    db_demande = helpers.get_demande_by_id(db, numero_demande=numero_demande)
     if db_demande is None:
-        raise HTTPException(status_code=404, detail="Demande not found")
+        return {"error": "Demande non trouvée"}
     return db_demande
 
-
-@app.get(
-    "/all_demandes",
-    summary="Lister toutes les demandes pour ML",
-    response_model=List[schemas.All_demandeSimple],
-    tags=["infos_demande"],
-)
-def list_all_demandes(skip: int = Query(0, ge=0), limit: int = Query(100, le=1000), db: Session = Depends(get_db)):
-    return helpers.get_all_demandes(db, skip=skip, limit=limit)
 
 
 # ========================================

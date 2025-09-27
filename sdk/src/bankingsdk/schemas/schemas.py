@@ -102,6 +102,38 @@ class DemandeDetailed(DemandeBase):
 
 
 # -----------------------------
+# Base pour ML
+# ------------------------------
+
+class AllDBBase(BaseModel):
+    numero_demande: int
+    montant_operation: Optional[int]
+    duree: Optional[int]
+    numero_client: Optional[int]
+    accord: Optional[str]
+    numero_agence: Optional[int]
+    duree_de_traitement: Optional[int]
+    code_accord: Optional[int] 
+    apport: Optional[int] 
+    revenu_mensuel_moyen: Optional[int]
+    code_regularite_revenus: Optional[int]
+    regularite_des_revenus: Optional[str]
+    code_statut_emploi: Optional[int] 
+    regularite_emploi: Optional[str]
+    situation_familliale: Optional[str]
+    nombre_enfants: Optional[int]
+    age: Optional[int]
+    nom_client: Optional[str] 
+    statut_activite: Optional[str]
+    ville: Optional[str]
+    adresse: Optional[str]
+
+    class Config:
+        from_attributes = True
+
+class AllDBSimple(AllDBBase):
+    pass
+# -----------------------------
 # Analytics
 # -----------------------------
 class AnalyticsResponse(BaseModel):

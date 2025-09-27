@@ -1,7 +1,7 @@
 """SQLAlchemy Query Functions for Credit Scoring"""
 from sqlalchemy.orm import Session, joinedload
 from typing import Optional, List
-
+import schemas
 import models
 
 
@@ -118,12 +118,11 @@ def get_apports(db: Session, skip: int = 0, limit: int = 100):
 # ML dataset
 # =========================
 
-def get_all_demandes(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.All_demande).offset(skip).limit(limit).all()
+def get_all_demandes(db: Session, skip: int = 0, limit: int = 100) -> list[schemas.AllDBSimple]:
+    return db.query(models.AllDB).offset(skip).limit(limit).all()
 
-def get_demande_by_id(db: Session, numero_demande: int):
-    return db.query(models.All_demande).filter(models.All_demande.numero_demande == numero_demande).first()
-
+def get_demande_by_id(db: Session, numero_demande: int) -> schemas.AllDBSimple | None:
+    return db.query(models.AllDB).filter(models.AllDB.numero_demande == numero_demande).first()
 
 
 # =========================
