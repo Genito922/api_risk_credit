@@ -126,10 +126,13 @@ class All_demandeBase(BaseModel):
     nom_client: str 
     statut_activite: str
     ville: str
-    adresse: str
+    adresse: str      
 
     class Config:
         from_attributes = True  
+
+class All_demandeSimple(All_demandeBase):
+    pass
 
 # -----------------------------
 # Analytics

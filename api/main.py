@@ -4,13 +4,13 @@ from typing import List, Optional
 
 from database import SessionLocal
 import query_helpers as helpers
-import schemas  # Ajouté pour utiliser les schémas Pydantic
+import schemas
 
 # Initialisation FastAPI
 app = FastAPI(
     title="Credit Risk API",
     description="API REST lecture seule pour BI & ML (Demandes, Clients, Agences, etc.)",
-    version="0.1"
+    version="0.2"
 )
 
 # Dépendance pour la DB
@@ -31,7 +31,7 @@ async def root():
 
 
 # ========================================
-# Endpoint pour obtenir une Demande par son ID
+# Endpoints Demandes
 # ========================================
 @app.get(
     "/demandes/{demande_id}",
@@ -46,9 +46,6 @@ def read_demande(demande_id: int = Path(...), db: Session = Depends(get_db)):
     return demande
 
 
-# ========================================
-# Endpoint pour lister les demandes
-# ========================================
 @app.get(
     "/demandes",
     summary="Lister les demandes",
@@ -82,7 +79,7 @@ def list_demandes(
 
 
 # ========================================
-# Endpoints pour les Agences
+# Endpoints Agences
 # ========================================
 @app.get(
     "/agences",
@@ -108,7 +105,7 @@ def read_agence(agence_id: int = Path(...), db: Session = Depends(get_db)):
 
 
 # ========================================
-# Endpoints pour Situation Professionnelle
+# Endpoints Situation Professionnelle
 # ========================================
 @app.get(
     "/situations_pro",
@@ -134,7 +131,7 @@ def read_situation_pro(client_id: int = Path(...), db: Session = Depends(get_db)
 
 
 # ========================================
-# Endpoints pour Situation Familiale
+# Endpoints Situation Familiale
 # ========================================
 @app.get(
     "/situations_famille",
@@ -160,7 +157,7 @@ def read_situation_famille(client_id: int = Path(...), db: Session = Depends(get
 
 
 # ========================================
-# Endpoints pour Apports
+# Endpoints Apports
 # ========================================
 @app.get(
     "/apports",
@@ -186,13 +183,12 @@ def read_apport(demande_id: int = Path(...), db: Session = Depends(get_db)):
 
 
 # ========================================
-# Endpoint ML
+# Endpoint ML / All demandes
 # ========================================
-
 @app.get(
     "/all_demandes/{numero_demande}",
-    summary="Obtenir les infos lié à une demande",
-    response_model=list[schemas.All_demandeBase],
+    summary="Obtenir les infos liées à une demande",
+    response_model=schemas.All_demandeSimple,  # objet unique, pas de liste
     tags=["infos_demande"],
 )
 def read_all_demandes(numero_demande: int = Path(...), db: Session = Depends(get_db)):    
@@ -202,9 +198,18 @@ def read_all_demandes(numero_demande: int = Path(...), db: Session = Depends(get
     return db_demande
 
 
+@app.get(
+    "/all_demandes",
+    summary="Lister toutes les demandes pour ML",
+    response_model=List[schemas.All_demandeSimple],
+    tags=["infos_demande"],
+)
+def list_all_demandes(skip: int = Query(0, ge=0), limit: int = Query(100, le=1000), db: Session = Depends(get_db)):
+    return helpers.get_all_demandes(db, skip=skip, limit=limit)
+
 
 # ========================================
-# Endpoint analytics
+# Endpoint Analytics
 # ========================================
 @app.get(
     "/analytics",

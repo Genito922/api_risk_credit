@@ -72,9 +72,6 @@ class Apport(Base):
     demande = relationship("Demande", back_populates="apport")  # One-to-One inverse
 
 
-from sqlalchemy import Column, Integer, String
-from .database import Base
-
 class All_demande(Base):
     __tablename__ = "all_demandes"
 
