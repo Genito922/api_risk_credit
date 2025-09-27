@@ -38,7 +38,7 @@ class DemandeClient:
     
     # --- Demandes ---
     def get_demande(self, demande_id: int) -> DemandeDetailed:
-        url = f"{self.bank_base_url}/demandes/{demande_id}"
+        url = f"{self.bank_base_url}/demandes/{demande_id}/"
         response = httpx.get(url)
         response.raise_for_status()
         return DemandeDetailed(**response.json())
@@ -56,7 +56,7 @@ class DemandeClient:
         code_accord: Optional[int] = None,
         output_format: Literal["pydantic", "dict", "pandas"] = "pydantic"
     ) -> Union[List[DemandeSimple], List[dict], pd.DataFrame]:
-        url = f"{self.bank_base_url}/demandes"
+        url = f"{self.bank_base_url}/demandes/"
         params = {"skip": skip, "limit": limit}
         if montant_operation:
             params["montant_operation"] = montant_operation
@@ -79,7 +79,7 @@ class DemandeClient:
 
     # --- Agences ---
     def get_agence(self, agence_id: int) -> AgenceSimple:
-        url = f"{self.bank_base_url}/agences/{agence_id}"
+        url = f"{self.bank_base_url}/agences/{agence_id}/"
         response = httpx.get(url)
         response.raise_for_status()
         return AgenceSimple(**response.json())
@@ -90,7 +90,7 @@ class DemandeClient:
         limit: int = 100,
         output_format: Literal["pydantic", "dict", "pandas"] = "pydantic"
     ) -> Union[List[AgenceSimple], List[dict], pd.DataFrame]:
-        url = f"{self.bank_base_url}/agences"
+        url = f"{self.bank_base_url}/agences/"
         params = {"skip": skip, "limit": limit}
         response = httpx.get(url, params=params)
         response.raise_for_status()
@@ -98,7 +98,7 @@ class DemandeClient:
     
     # --- Situation Professionnelle ---
     def get_situation_pro(self, client_id: int) -> SituationProSimple:
-        url = f"{self.bank_base_url}/situations_pro/{client_id}"
+        url = f"{self.bank_base_url}/situations_pro/{client_id}/"
         response = httpx.get(url)
         response.raise_for_status()
         return SituationProSimple(**response.json())
@@ -109,7 +109,7 @@ class DemandeClient:
         limit: int = 100,
         output_format: Literal["pydantic", "dict", "pandas"] = "pydantic"
     ) -> Union[List[SituationProSimple], List[dict], pd.DataFrame]:
-        url = f"{self.bank_base_url}/situations_pro"
+        url = f"{self.bank_base_url}/situations_pro/"
         params = {"skip": skip, "limit": limit}
         response = httpx.get(url, params=params)
         response.raise_for_status()
@@ -117,7 +117,7 @@ class DemandeClient:
 
     # --- Situation Familiale ---
     def get_situation_famille(self, client_id: int) -> SituationFamilialeSimple:
-        url = f"{self.bank_base_url}/situations_famille/{client_id}"
+        url = f"{self.bank_base_url}/situations_famille/{client_id}/"
         response = httpx.get(url)
         response.raise_for_status()
         return SituationFamilialeSimple(**response.json())
@@ -128,7 +128,7 @@ class DemandeClient:
         limit: int = 100,
         output_format: Literal["pydantic", "dict", "pandas"] = "pydantic"
     ) -> Union[List[SituationFamilialeSimple], List[dict], pd.DataFrame]:
-        url = f"{self.bank_base_url}/situations_famille"
+        url = f"{self.bank_base_url}/situations_famille/"
         params = {"skip": skip, "limit": limit}
         response = httpx.get(url, params=params)
         response.raise_for_status()
@@ -136,7 +136,7 @@ class DemandeClient:
 
     # --- Apports ---
     def get_apport(self, demande_id: int) -> ApportSimple:
-        url = f"{self.bank_base_url}/apports/{demande_id}"
+        url = f"{self.bank_base_url}/apports/{demande_id}/"
         response = httpx.get(url)
         response.raise_for_status()
         return ApportSimple(**response.json())
@@ -147,7 +147,7 @@ class DemandeClient:
         limit: int = 100,
         output_format: Literal["pydantic", "dict", "pandas"] = "pydantic"
     ) -> Union[List[ApportSimple], List[dict], pd.DataFrame]:
-        url = f"{self.bank_base_url}/apports"
+        url = f"{self.bank_base_url}/apports/"
         params = {"skip": skip, "limit": limit}
         response = httpx.get(url, params=params)
         response.raise_for_status()
@@ -155,7 +155,7 @@ class DemandeClient:
     
     # --- All Demandes (fusionnées pour ML) ---
     def get_all_demandes(self, db_id: int) -> AllDBSimple:
-        url = f"{self.bank_base_url}/all_demandes/{db_id}"
+        url = f"{self.bank_base_url}/all_demandes/{db_id}/"
         response = httpx.get(url)
         response.raise_for_status()
         return AllDBSimple(**response.json())
@@ -166,7 +166,7 @@ class DemandeClient:
         limit: int = 100,
         output_format: Literal["pydantic", "dict", "pandas"] = "pydantic"
     ) -> Union[List[AllDBSimple], List[dict], pd.DataFrame]:
-        url = f"{self.bank_base_url}/all_demandes"
+        url = f"{self.bank_base_url}/all_demandes/"
         params = {"skip": skip, "limit": limit}
         response = httpx.get(url, params=params)
         response.raise_for_status()
@@ -174,7 +174,7 @@ class DemandeClient:
 
     # --- Analytics ---
     def get_analytics(self) -> AnalyticsResponse:
-        url = f"{self.bank_base_url}/analytics"
+        url = f"{self.bank_base_url}/analytics/"
         response = httpx.get(url)
         response.raise_for_status()
         return AnalyticsResponse(**response.json())
