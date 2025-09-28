@@ -57,11 +57,15 @@ def list_demandes(
     limit: int = Query(100, le=1000),
     montant_operation: Optional[int] = Query(None),
     duree: Optional[int] = Query(None),
+    date_de_demande: Optional[str] = Query(None),
+    date_de_cloture: Optional[str] = Query(None),
     numero_client: Optional[int] = Query(None),
     accord: Optional[str] = Query(None),
     numero_agence: Optional[int] = Query(None),
     duree_de_traitement: Optional[int] = Query(None),
     code_accord: Optional[int] = Query(None),
+    score_emprunteur: Optional[str] = Query(None),
+    montant_prete: Optional[int] = Query(None),
     db: Session = Depends(get_db)
 ):
     return helpers.get_demandes(
@@ -70,11 +74,15 @@ def list_demandes(
         limit=limit,
         montant_operation=montant_operation,
         duree=duree,
+        date_de_demande=date_de_demande,
+        date_de_cloture=date_de_cloture,
         numero_client=numero_client,
         accord=accord,
         numero_agence=numero_agence,
         duree_de_traitement=duree_de_traitement,
-        code_accord=code_accord
+        code_accord=code_accord,
+        score_emprunteur= score_emprunteur,
+        montant_prete=montant_prete
     )
 
 

@@ -28,11 +28,15 @@ def get_demandes(
     limit: int = 100,
     montant_operation: Optional[int] = None,
     duree: Optional[int] = None,
+    date_de_demande: Optional[str] = None,
+    date_de_cloture: Optional[str] = None,
     numero_client: Optional[int] = None,
     accord: Optional[str] = None,
     numero_agence: Optional[int] = None,
     duree_de_traitement: Optional[int] = None,
-    code_accord: Optional[int] = None
+    code_accord: Optional[int] = None,
+    score_emprunteur:Optional[str] = None,
+    montant_prete: Optional[int] = None
 ):
     """Récupère une liste de demandes avec filtres optionnels et relations One-to-One."""
     query = db.query(models.Demande).options(
@@ -45,6 +49,10 @@ def get_demandes(
         query = query.filter(models.Demande.montant_operation == montant_operation)
     if duree is not None:
         query = query.filter(models.Demande.duree == duree)
+    if date_de_demande is not None:
+        query = query.filter(models.Demande.date_de_demande == date_de_demande) 
+    if date_de_cloture is not None:
+        query = query.filter(models.Demande.date_de_cloture == date_de_cloture)
     if numero_client is not None:
         query = query.filter(models.Demande.numero_client == numero_client)
     if accord is not None:
@@ -55,6 +63,10 @@ def get_demandes(
         query = query.filter(models.Demande.duree_de_traitement == duree_de_traitement)
     if code_accord is not None:
         query = query.filter(models.Demande.code_accord == code_accord)
+    if score_emprunteur is not None:
+        query = query.filter(models.Demande.score_emprunteur == score_emprunteur)        
+    if montant_prete is not None:
+        query = query.filter(models.Demande.montant_prete == montant_prete)
 
     return query.offset(skip).limit(limit).all()
 

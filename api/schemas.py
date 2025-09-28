@@ -77,11 +77,15 @@ class DemandeBase(BaseModel):
     numero_demande: int
     montant_operation: Optional[int]
     duree: Optional[int]
+    date_de_demande: Optional[str]
+    date_de_cloture: Optional[str]
     numero_client: int
     accord: Optional[str]
     numero_agence: int
     duree_de_traitement: Optional[int]
     code_accord: Optional[int]
+    score_emprunteur: Optional[str]
+    montant_prete: Optional[int]
 
     class Config:
         from_attributes = True
@@ -109,11 +113,15 @@ class AllDBBase(BaseModel):
     numero_demande: int
     montant_operation: Optional[int]
     duree: Optional[int]
+    date_de_demande: Optional[str]
+    date_de_cloture: Optional[str]
     numero_client: Optional[int]
     accord: Optional[str]
     numero_agence: Optional[int]
     duree_de_traitement: Optional[int]
-    code_accord: Optional[int] 
+    code_accord: Optional[int]
+    score_emprunteur: Optional[str]
+    montant_prete: Optional[int] 
     apport: Optional[int] 
     revenu_mensuel_moyen: Optional[int]
     code_regularite_revenus: Optional[int]
